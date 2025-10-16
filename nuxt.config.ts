@@ -6,5 +6,10 @@ export default defineNuxtConfig({
   css: ['@/assets/css/main.css'],
   supabase: {
     redirect: false
+  },
+  runtimeConfig: {
+    public: {
+      appUrl: process.env.APP_URL
+    }
   }
 })

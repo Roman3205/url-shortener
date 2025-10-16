@@ -11,7 +11,7 @@ body::before {
     content: '';
     position: fixed;
     z-index: -1;
-    background: radial-gradient(65.61% 65.61% at 50% 45%, rgba(188, 153, 14, 0.4) 10%, rgba(122, 104, 23, 0) 100%);
+    background: radial-gradient(65.61% 65.61% at 50% 45%, rgba(188, 153, 14, 0.5) 10%, rgba(122, 104, 23, 0) 100%);
 }
 
 .container {

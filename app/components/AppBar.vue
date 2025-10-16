@@ -6,10 +6,13 @@
             <li v-for="link in navLinks" :key="link.to">
                 <NuxtLink :to="link.to">{{ link.label }}</NuxtLink>
             </li>
-            <li>
+            <li v-if="!user">
                 <NuxtLink :to="{name: 'auth'}">
                     <UButton>Sign in</UButton>
                 </NuxtLink>
+            </li>
+            <li v-else>
+                <UButton @click="handleLogout()">Logout</UButton>
             </li>
         </ul>
     </nav>
@@ -18,6 +21,13 @@
 
 <script lang="ts" setup>
 const navLinks = ref<{to: string; label: string}[]>([{to: '/', label: 'Home'}])
+const user = useSupabaseUser()
+const supabase = useSupabaseClient()
+
+const handleLogout = async () => {
+    await supabase.auth.signOut()
+    return navigateTo({name: 'index'})
+}
 </script>
 
 <style>
