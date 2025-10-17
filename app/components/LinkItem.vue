@@ -1,8 +1,8 @@
 <template>
     <div class="card flex justify-between">
-        <div class="flex flex-col gap-1">
+        <div class="flex flex-col gap-1 w-2/5">
             <NuxtLink :to="`/dashboard/${link.shortKey}`" class="text-amber-500 font-bold text-2xl cursor-pointer">{{ link.shortKey }}</NuxtLink>
-            <span class="text-sm text-white/40">{{ link.longUrl }} </span>
+            <span class="text-sm text-white/40 truncate">{{ link.longUrl }} </span>
         </div>
         <div class="flex gap-5 items-center">
             <UIcon name="i-heroicons-arrow-trending-up" />

@@ -18,7 +18,7 @@
       </div>
       <div class="card mt-5 md:mt-0 md:ml-5 w-full relative">
         <span
-          class="w-full bg-transparent focus:outline-none appearance-none resize-none"
+          class="bg-transparent truncate line-clamp-1 max-w-4/5"
         >{{ data.long_url }}</span>
         <UButton
           @click="handleCopy(data.long_url)"
