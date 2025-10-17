@@ -35,20 +35,19 @@ const {data} = await useAsyncData(`link-${params.key}`, async () => {
 if (data.value?.long_url) {
   const agent = useUserAgent()
 
-  if (agent) {
-    const geo = geoip.lookup("207.97.227.239");
+  if (agent && agent.ip) {
+    const geo = geoip.lookup(agent.ip);
     const {error} = await supabase.from('clicks').insert({
       link_id: data.value.id,
-      ip: '227.82.91.30',
+      ip: agent.ip,
       country: geo?.country,
       city: geo?.city,
       user_agent: agent.userAgent
     })
-  console.log(error)
-
+    // console.log(error)
   }
 
-  // useRedirect(data.value?.long_url)
+  useRedirect(data.value?.long_url)
   // navigateTo(data.value?.long_url as string, {external:true, redirectCode: 302})
 }
 </script>

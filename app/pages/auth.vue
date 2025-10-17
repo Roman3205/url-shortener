@@ -56,7 +56,7 @@ const handleGithubLogin = async () => {
 
 const handleSignUp = async (event: FormSubmitEvent<z.output<typeof loginSchema>>) => {
     try {
-        const {data,error} = await supabase.auth.signUp({email: event.data.email, password: event.data.password, options: {emailRedirectTo: 'http://localhost:3002/auth'}})
+        const {data,error} = await supabase.auth.signUp({email: event.data.email, password: event.data.password, options: {emailRedirectTo: `${useRuntimeConfig().public.appUrl}/auth`}})
 
         if(error) {
             return toast.add({title: 'Error', description: error.message, color: 'error'})
