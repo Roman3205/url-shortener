@@ -4,8 +4,6 @@
 
 <script lang="ts" setup>
 import type {Database} from '~~/types/supabase'
-import geoip from 'geoip-lite'
-
 const params = useRoute().params
 definePageMeta({
   layout: false
@@ -21,35 +19,33 @@ if (!params.key) {
 
 const {data} = await useAsyncData(`link-${params.key}`, async () => {
   const {data,error} = await supabase.from('links').select('*').eq('key', params.key).single()
-
   if (error || !data) {
     throw createError({
       statusCode: 404,
       message: 'Not found'
     })
   }
-
   return data
 })
 
 if (data.value?.long_url) {
   const agent = useUserAgent()
-
+  let newClick: any = {};
   if (agent) {
-  let ip;
-  if (agent.ip) {
-    ip = geoip.lookup(agent.ip);
-  }
+    newClick.user_agent = agent.userAgent;
+    newClick.ip = agent.ip || 'unknown';
+    if (agent.ip) {
+      const geo = useNuxtApp().$geoip.lookup(agent.ip);
+      if (geo) {
+        newClick.country = geo.country || 'unknown';
+        newClick.city = geo.city || 'unknown';
+      }
+    }
     const {error} = await supabase.from('clicks').insert({
       link_id: data.value.id,
-      ip: agent.ip || 'unknown',
-      country: ip?.country || 'unknown',
-      city: ip?.city || 'unknown',
-      user_agent: agent.userAgent
+      ...newClick
     })
-    // console.log(error)
   }
-
   useRedirect(data.value?.long_url)
   // navigateTo(data.value?.long_url as string, {external:true, redirectCode: 302})
 }

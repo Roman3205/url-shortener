@@ -24,8 +24,7 @@ const supabase = useSupabaseClient<Database>()
 const user = useSupabaseUser()
 
 const {data, refresh} = useAsyncData('links', async () => {
-  // enable rls policy for authenticated select only
-  const {data,error} = await supabase.from('links').select('*').order('created_at', {ascending: false})
+  const {data,error} = await supabase.from('links').select('*').eq('user_id', user.value?.sub).order('created_at', {ascending: false})
 
   if (error) {
     throw createError({

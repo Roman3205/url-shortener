@@ -51,6 +51,7 @@ import type { Database} from '~~/types/supabase'
 
 const {id} = useRoute().params as {id: string}
 const supabase = useSupabaseClient<Database>()
+const user = useSupabaseUser()
 const config = useRuntimeConfig()
 const toast = useToast()
 
@@ -59,7 +60,7 @@ definePageMeta({
 })
 
 const {data} = await useAsyncData(`link-${id}`, async () => {
-  const {data,error} = await supabase.from('links').select('*, clicks(*)').eq('key', id).single()
+  const {data,error} = await supabase.from('links').select('*, clicks(*)').eq('key', id).eq('user_id', user.value?.sub).single()
   
   if (error || !data) {
     throw createError({
