@@ -35,13 +35,16 @@ const {data} = await useAsyncData(`link-${params.key}`, async () => {
 if (data.value?.long_url) {
   const agent = useUserAgent()
 
-  if (agent && agent.ip) {
-    const geo = geoip.lookup(agent.ip);
+  if (agent) {
+  let ip;
+  if (agent.ip) {
+    ip = geoip.lookup(agent.ip);
+  }
     const {error} = await supabase.from('clicks').insert({
       link_id: data.value.id,
       ip: agent.ip,
-      country: geo?.country,
-      city: geo?.city,
+      country: ip?.country || 'unknown',
+      city: ip?.city || 'unknown',
       user_agent: agent.userAgent
     })
     // console.log(error)
