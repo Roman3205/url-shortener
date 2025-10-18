@@ -42,7 +42,7 @@ if (data.value?.long_url) {
   }
     const {error} = await supabase.from('clicks').insert({
       link_id: data.value.id,
-      ip: agent.ip,
+      ip: agent.ip || 'unknown',
       country: ip?.country || 'unknown',
       city: ip?.city || 'unknown',
       user_agent: agent.userAgent
