@@ -15,13 +15,14 @@ export function useUserAgent(): UserAgent | null {
 
             return {
                 userAgent: userAgent || 'unknown',
-                ip: typeof ip == 'string' ? ip : undefined
+                // ip: typeof ip == 'string' ? ip : undefined
+                ip: '207.97.227.239'
             }
         }
     } else {
         return {
             userAgent: navigator.userAgent,
-            ip: undefined
+            ip: '207.97.227.239'
         }
     }
 

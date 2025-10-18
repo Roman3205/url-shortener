@@ -28,7 +28,7 @@
     </div>
 
     <div class="my-10">
-      <div v-for="click in data.clicks" :key="click.id" class="card w-full mb-6">
+      <div v-for="click in sortedClicks" :key="click.id" class="card w-full mb-6">
         <div v-if="click && typeof click === 'object'">
           <div class="flex justify-between">
             <div class="flex flex-col">
@@ -70,6 +70,10 @@ const {data} = await useAsyncData(`link-${id}`, async () => {
   }
 
   return data
+})
+
+const sortedClicks = computed(() => {
+  return data.value?.clicks.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
 })
 
 const handleCopy = (text: string) => {

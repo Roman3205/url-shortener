@@ -36,6 +36,7 @@ if (data.value?.long_url) {
     newClick.ip = agent.ip || 'unknown';
     if (agent.ip) {
       const geo = useNuxtApp().$geoip.lookup(agent.ip);
+
       if (geo) {
         newClick.country = geo.country || 'unknown';
         newClick.city = geo.city || 'unknown';
