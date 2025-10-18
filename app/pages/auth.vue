@@ -51,7 +51,7 @@ const isLoggingIn = ref<boolean>(false)
 
 const supabase = useSupabaseClient()
 const handleGithubLogin = async () => {
-    await supabase.auth.signInWithOAuth({provider: 'github'})
+    await supabase.auth.signInWithOAuth({provider: 'github', options: {redirectTo: `${useRuntimeConfig().public.appUrl}/dashboard`}})
 }
 
 const handleSignUp = async (event: FormSubmitEvent<z.output<typeof loginSchema>>) => {
