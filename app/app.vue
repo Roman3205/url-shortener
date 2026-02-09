@@ -1,7 +1,7 @@
 <template>
   <UApp>
     <NuxtLoadingIndicator 
-      color="orange"
+      color="teal"
       :height="4"
       style="opacity: 100 !important"
       />
